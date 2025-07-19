@@ -6,8 +6,18 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-2">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              <svg
+                class="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                />
               </svg>
               <h1 class="text-2xl font-bold text-gray-900">Task List</h1>
             </div>
@@ -15,13 +25,23 @@
               Use this template to track your personal tasks.
             </p>
           </div>
-          
+
           <button
             @click="showForm = true"
             class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all duration-200 flex items-center gap-2"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
             </svg>
             New Task
           </button>
@@ -63,7 +83,10 @@
       </div>
 
       <!-- Board View -->
-      <div v-if="viewMode === 'board'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        v-if="viewMode === 'board'"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
         <TodoColumn
           v-for="status in statusOrder"
           :key="status"
@@ -87,13 +110,25 @@
           @edit="editTodo"
           @delete="handleDeleteTodo"
         />
-        
+
         <div v-if="filteredTodos.length === 0" class="text-center py-12">
-          <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          <svg
+            class="w-12 h-12 mx-auto mb-4 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            />
           </svg>
           <h3 class="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
-          <p class="text-gray-500 mb-4">Get started by creating your first task.</p>
+          <p class="text-gray-500 mb-4">
+            Get started by creating your first task.
+          </p>
           <button
             @click="showForm = true"
             class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all duration-200"
@@ -115,13 +150,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useTodos } from './composables/useTodos';
-import TodoItem from './components/TodoItem.vue';
-import TodoForm from './components/TodoForm.vue';
-import StatusFilter from './components/StatusFilter.vue';
-import TodoColumn from './components/TodoColumn.vue';
-import type { Todo, TaskStatus } from './types/todo';
+import { ref, computed, watch } from "vue";
+import { useTodos } from "./composables/useTodos";
+import TodoItem from "./components/TodoItem.vue";
+import TodoForm from "./components/TodoForm.vue";
+import StatusFilter from "./components/StatusFilter.vue";
+import TodoColumn from "./components/TodoColumn.vue";
+import type { Todo, TaskStatus } from "./types/todo";
 
 const {
   todos,
@@ -132,28 +167,28 @@ const {
   updateTodo,
   deleteTodo,
   toggleTodo,
-  setFilter
+  setFilter,
 } = useTodos();
 
 const showForm = ref(false);
 const editingTodo = ref<Todo | null>(null);
-const searchQuery = ref('');
+const searchQuery = ref("");
 const activeStatusFilter = ref<TaskStatus | null>(null);
-const viewMode = ref<'board' | 'list'>('board');
+const viewMode = ref<"board" | "list">("board");
 
-const statusOrder: TaskStatus[] = ['todo', 'in-progress', 'done', 'no-status'];
+const statusOrder: TaskStatus[] = ["todo", "in-progress", "done", "no-status"];
 
 // Update filters when search or status filter changes
 watch([searchQuery, activeStatusFilter], () => {
   setFilter({
     search: searchQuery.value || undefined,
-    status: activeStatusFilter.value || undefined
+    status: activeStatusFilter.value || undefined,
   });
 });
 
 const statusCounts = computed(() => {
   const counts: Record<string, number> = {};
-  statusOrder.forEach(status => {
+  statusOrder.forEach((status) => {
     counts[status] = groupedTodos.value[status].length;
   });
   return counts;
@@ -183,7 +218,7 @@ const handleFormSubmit = (formData: any) => {
 };
 
 const handleDeleteTodo = (id: string) => {
-  if (confirm('Are you sure you want to delete this task?')) {
+  if (confirm("Are you sure you want to delete this task?")) {
     deleteTodo(id);
   }
 };

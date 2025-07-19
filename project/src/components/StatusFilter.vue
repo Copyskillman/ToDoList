@@ -6,7 +6,7 @@
       :class="[
         activeFilter === null
           ? 'bg-blue-100 text-blue-800 border border-blue-200'
-          : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+          : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100',
       ]"
     >
       All Tasks
@@ -16,20 +16,20 @@
     <button
       v-for="(config, status) in statusConfig"
       :key="status"
-      @click="$emit('filter', status)"
+      @click="$emit('filter', status as TaskStatus)"
       class="px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 flex items-center gap-2"
-      :class="[
+      :class="[activeFilter === status ? 'border' : 'hover:bg-gray-50']"
+      :style="
         activeFilter === status
-          ? 'border'
-          : 'hover:bg-gray-50'
-      ]"
-      :style="activeFilter === status ? {
-        backgroundColor: config.bgColor,
-        color: config.textColor,
-        borderColor: config.color
-      } : {}"
+          ? {
+              backgroundColor: config.bgColor,
+              color: config.textColor,
+              borderColor: config.color,
+            }
+          : {}
+      "
     >
-      <span 
+      <span
         class="w-2 h-2 rounded-full"
         :style="{ backgroundColor: config.color }"
       ></span>
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TaskStatus } from '../types/todo';
+import type { TaskStatus } from "../types/todo";
 
 interface Props {
   statusConfig: Record<string, any>;
